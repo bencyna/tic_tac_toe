@@ -1,3 +1,6 @@
+import random
+import time
+
 Game = ["   ", "|", "   ", "|", "   ", "\n", "-----------", "\n", '   ', '|', '   ', "|", "   ", "\n", "-----------",
         "\n",
         "   ", "|", "   ", "|", "   ", ]
@@ -12,11 +15,19 @@ winning_positions = [['0, 1', '0, 2', '0, 3'], ['1, 1', '1, 2', '1, 3'], ['2, 1'
 player1_positions = []
 player2_positions = []
 all_chosen = []
+all_available = ['0, 0', '0, 1', '0, 2', '1, 0', '1, 1', '1, 2', '2, 0', '2, 1',
+                 '2, 2', ]
+
+computer = False
 
 
 def init_game():
-    global Game
+    global Game, computer
     print("Play tic tac toe\n\n")
+    comp = input("Do you want to play against the computer? y/n")
+    if comp:
+        computer = True
+
     print_game()
 
 
@@ -42,11 +53,12 @@ def add_user_positions(player_num, position):
     else:
         player2_positions.append(position)
 
+    all_available.remove(position)
     check_for_winner(position)
 
 
 def user_input():
-    global positions_dict, player1_turn, Game
+    global positions_dict, player1_turn, Game, computer
     if player1_turn:
         player = "1"
         symbol = " X "
@@ -54,8 +66,20 @@ def user_input():
         player = "2"
         symbol = " O "
 
-    pos = input(
-        f"\nPlayer {player}:\nenter the position of the element you want to add \ni.e. top left is 0, 0, bottom right is 2, 2, bottom middle is 1, 2\n")
+    if computer and not player1_turn:
+        print("the computer is calculating the best possible choice")
+        time.sleep(3)
+        pos = random.choice(all_available)
+        print(f"The computer chooses: {pos}\n")
+        time.sleep(1)
+        print("...")
+        time.sleep(1)
+        print("...")
+        time.sleep(1)
+        print("...\n")
+    else:
+        pos = input(
+            f"\nPlayer {player}:\nenter the position of the element you want to add \ni.e. top left is 0, 0, bottom right is 2, 2, bottom middle is 1, 2\n")
 
     if pos in all_chosen:
         print("Position taken, choose a different spot")
