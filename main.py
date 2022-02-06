@@ -22,17 +22,16 @@ def init_game():
 
 def check_for_winner(position):
     for winning_row in winning_positions:
-        print(set(winning_row).issubset(player1_positions))
         if set(winning_row).issubset(player1_positions):
-            print("Winner is player 1")
+            print("\n\nWinner is player 1!!!")
             return
         elif set(winning_row).issubset(player2_positions):
-            print("winner is player 2")
+            print("\n\nwinner is player 2")
             return
 
     all_chosen.append(position)
     if len(all_chosen) >= 9:
-        print("The game is a draw")
+        print("\n\nThe game is a draw :/")
     else:
         print_game()
 
