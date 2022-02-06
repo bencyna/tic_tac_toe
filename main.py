@@ -25,8 +25,14 @@ def init_game():
     global Game, computer
     print("Play tic tac toe\n\n")
     comp = input("Do you want to play against the computer? y/n")
-    if comp:
+    if comp.lower() == 'y' or comp.lower() == 'yes':
         computer = True
+        print("Playing the computer, goodluck!\n\n")
+        time.sleep(2)
+    else:
+        print("May the best player win!\n\n")
+        time.sleep(2)
+
 
     print_game()
 
@@ -68,7 +74,7 @@ def user_input():
 
     if computer and not player1_turn:
         print("the computer is calculating the best possible choice")
-        time.sleep(3)
+        time.sleep(2)
         pos = random.choice(all_available)
         print(f"The computer chooses: {pos}\n")
         time.sleep(1)
